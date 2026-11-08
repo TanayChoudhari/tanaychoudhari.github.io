@@ -150,13 +150,4 @@ likeButton?.addEventListener("click", () => {
   requestAnimationFrame(() => likeButton.classList.add("pulse"));
 });
 
-document.querySelector("#contact-form")?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const fields = new FormData(form);
-  const subject = encodeURIComponent(`Portfolio message from ${fields.get("name")}`);
-  const body = encodeURIComponent(`${fields.get("message")}\n\nReply to: ${fields.get("email")}`);
-  window.location.href = `mailto:tanaychoudhari30@gmail.com?subject=${subject}&body=${body}`;
-});
-
 document.querySelector("#current-year").textContent = String(new Date().getFullYear());
