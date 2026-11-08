@@ -1,5 +1,7 @@
 const nav = document.querySelector("#main-nav");
 const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+const sections = [...document.querySelectorAll("main section[id]")];
+/*
 const themeToggle = document.querySelector("#theme-toggle");
 const themeColor = document.querySelector('meta[name="theme-color"]');
 
@@ -17,9 +19,20 @@ themeToggle?.addEventListener("click", () => {
   localStorage.setItem("portfolioTheme", theme);
   setTheme(theme);
 });
+*/
 
 function updateNavigation() {
   nav?.classList.toggle("scrolling", window.scrollY > 8);
+  const activationLine = window.innerHeight * 0.35;
+  let activeSection = sections[0];
+  for (const section of sections) {
+    if (section.getBoundingClientRect().top > activationLine) break;
+    activeSection = section;
+  }
+  for (const link of navLinks) {
+    link.classList.toggle("active", link.hash === `#${activeSection?.id}`);
+  }
+
   if (nav && window.innerWidth > 760) {
     const progress = Math.min(window.scrollY / 1000, 1);
     const eased = 1 - (1 - progress) ** 4;
@@ -41,19 +54,6 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 window.addEventListener("resize", updateNavigation);
 updateNavigation();
-
-const sections = [...document.querySelectorAll("main section[id]")];
-if ("IntersectionObserver" in window) {
-  const sectionObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      for (const link of navLinks) {
-        link.classList.toggle("active", link.hash === `#${entry.target.id}`);
-      }
-    }
-  }, { threshold: 0.35 });
-  sections.forEach((section) => sectionObserver.observe(section));
-}
 
 document.querySelectorAll(".skill-toggle").forEach((button) => {
   button.addEventListener("click", () => {
