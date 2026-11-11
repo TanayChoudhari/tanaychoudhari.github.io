@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A beginner-friendly guide to Node.js, servers, Express, APIs, asynchronous programming, the Event Loop, modules, npm, and package.json.">
+    <meta name="theme-color" content="#101010">
+    <title>Node.js Explained for Beginners | Tanay Choudhari</title>
+    <link rel="canonical" href="https://tanaychoudhari.github.io/blogs/nodejs-explained-for-beginners.html">
+    <link rel="icon" type="image/png" href="../favicon.ico">
+    <link rel="preload" href="../assets/fonts/montserrat-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/blogs.css">
+  </head>
+  <body>
+    <header data-site-header></header>
+    <main class="page-content article-page">
+      <article class="article-shell">
+        <p class="article-breadcrumb"><a href="../blogs.html">Blogs</a> / Node.js fundamentals</p>
+        <header class="article-heading">
+          <p class="section-kicker">Backend development · Beginner guide</p>
+          <h1>Node.js Explained for Beginners: A Complete Guide from Zero to Understanding</h1>
+          <p class="article-deck">New to backend development? Learn what Node.js is, why it is useful, and how servers, Express, APIs, async JavaScript, and npm fit together.</p>
+          <div class="article-byline"><span class="article-avatar" aria-hidden="true">TC</span><span>By <strong>Tanay Choudhari</strong><br>Beginner-friendly guide</span></div>
+        </header>
+        <img class="article-banner" src="../assets/images/nodejs-explained-for-beginners.png" alt="Node.js beginner guide banner">
+
+        <div class="article-layout">
+          <nav class="article-toc" aria-label="Table of contents">
+            <h2>In this article</h2>
+            <ol>
+              <li><a href="#what-is-node">What is Node.js?</a></li>
+              <li><a href="#why-node">Why do we need Node.js?</a></li>
+              <li><a href="#execute-javascript">How Node.js executes JavaScript</a></li>
+              <li><a href="#server">What is a server?</a></li>
+              <li><a href="#npm">What is npm?</a></li>
+              <li><a href="#express">What is Express.js?</a></li>
+              <li><a href="#apis">What are APIs?</a></li>
+              <li><a href="#async">Asynchronous programming</a></li>
+              <li><a href="#event-loop">The Event Loop</a></li>
+              <li><a href="#modules">Modules</a></li>
+              <li><a href="#built-in-modules">Built-in modules</a></li>
+              <li><a href="#package-json">package.json</a></li>
+              <li><a href="#together">How it all works together</a></li>
+              <li><a href="#next">What to learn next</a></li>
+              <li><a href="#conclusion">Conclusion</a></li>
+            </ol>
+          </nav>
+
+          <div class="article-body">
+            <p>If you've recently started learning backend development, you've probably heard about Node.js. You might also have come across terms like Express.js, npm, APIs, callbacks, Promises, and the Event Loop.</p>
+            <p>Initially, all these terms can sound confusing. But don't worry! In this blog, we'll understand Node.js from scratch using simple language, real-life examples, and practical code snippets.</p>
+            <p>By the end of this article, you'll understand what Node.js is, why we use it, how it works, and how its important concepts fit together.</p>
+
+            <section id="what-is-node">
+              <h2>1. What is Node.js?</h2>
+              <p>Let's start with a simple question: <strong>Can JavaScript run outside a web browser?</strong></p>
+              <p>When we think about JavaScript, we often think about websites. You open a browser, visit a site, click a button, and JavaScript makes the page interactive. Traditionally, JavaScript was primarily used inside web browsers.</p>
+              <p>But what if we want to use JavaScript to:</p>
+              <ul><li>Read files from a computer.</li><li>Connect to a database.</li><li>Create a web server.</li><li>Build APIs.</li><li>Handle user login and registration.</li></ul>
+              <p>This is where Node.js comes into the picture.</p>
+              <div class="article-callout"><strong>Node.js is a JavaScript runtime environment that allows us to execute JavaScript outside the browser.</strong> It provides the environment and tools to run JavaScript on a computer or server without needing a web browser.</div>
+              <h3>JavaScript vs Node.js</h3>
+              <div class="article-table-wrap"><table>
+                <thead><tr><th>JavaScript</th><th>Node.js</th></tr></thead>
+                <tbody>
+                  <tr><td>A programming language</td><td>A runtime environment</td></tr>
+                  <tr><td>Defines syntax and logic</td><td>Executes JavaScript outside the browser</td></tr>
+                  <tr><td>Used for frontend and backend development</td><td>Commonly used for backend development</td></tr>
+                  <tr><td>Browser APIs provide features like DOM manipulation</td><td>Provides features like file-system access and server creation</td></tr>
+                </tbody>
+              </table></div>
+              <p>Think of JavaScript as the language you speak and Node.js as the environment where you can use that language outside the browser.</p>
+            </section>
+
+            <section id="why-node">
+              <h2>2. Why Do We Need Node.js?</h2>
+              <p>Imagine you're building a website where users can register and log in. When someone enters their email and password, your application needs to:</p>
+              <ol><li>Receive the email and password.</li><li>Check whether the user exists.</li><li>Connect to a database.</li><li>Verify the password.</li><li>Return a response saying whether the login was successful.</li></ol>
+              <p>This is backend functionality. JavaScript running in the browser is not enough to safely handle all these responsibilities. We need a backend environment, and Node.js allows us to write JavaScript code that handles these operations.</p>
+              <h3>Understanding frontend, backend, and database</h3>
+              <p><strong>Frontend:</strong> The part of the application users see and interact with. React, Angular, and Vue are commonly used here.</p>
+              <p><strong>Backend:</strong> Handles business logic, processes requests, performs authentication, and communicates with databases. Node.js can be used here.</p>
+              <p><strong>Database:</strong> Stores information such as users, products, and orders. MySQL and MongoDB are examples.</p>
+              <p>For example, when a user logs in, React displays the form, Node.js handles the login request, and MySQL stores and retrieves user information. This is how these technologies work together.</p>
+            </section>
+
+            <section id="execute-javascript">
+              <h2>3. How Does Node.js Execute JavaScript?</h2>
+              <p>Let's create our first Node.js program. Create a file called <code>app.js</code> and write:</p>
+              <pre><code>console.log("Hello World");</code></pre>
+              <p>Open your terminal and execute:</p>
+              <pre><code>node app.js</code></pre>
+              <p>Output:</p>
+              <pre><code>Hello World</code></pre>
+              <p>We created a JavaScript file, executed it using the Node.js command, and saw the output in the terminal. We didn't need to open a browser. That's the basic working of Node.js.</p>
+            </section>
+
+            <section id="server">
+              <h2>4. What Is a Server in Node.js?</h2>
+              <p>This is one of the most important concepts in backend development. Let's understand it with a restaurant example:</p>
+              <ul><li>Customer = Client</li><li>Waiter = Request handler</li><li>Kitchen = Server</li><li>Food = Response</li></ul>
+              <p>The customer orders food. The waiter takes the order to the kitchen. The kitchen prepares the food, and the waiter delivers it to the customer. A web server works similarly:</p>
+              <ol><li>Your browser sends a request to the server.</li><li>The server receives the request.</li><li>The server performs the required operation.</li><li>It sends a response back to your browser.</li><li>Your browser displays the result.</li></ol>
+              <p>Node.js can be used to create this server. It provides a built-in module called <code>http</code> that allows us to create an HTTP server. Create a file called <code>server.js</code>:</p>
+              <pre><code>const http = require('http');
+
+const server = http.createServer((req, res) =&gt; {
+    res.write('Hello! Welcome to my website');
+    res.end();
+});
+
+server.listen(3000, () =&gt; {
+    console.log('Server is running on port 3000');
+});</code></pre>
+              <p>Run the server with <code>node server.js</code>. You should see <code>Server is running on port 3000</code>. Now open your browser and visit <code>http://localhost:3000</code>. You should see <code>Hello! Welcome to my website</code>.</p>
+              <p>Congratulations! You've created your first Node.js server.</p>
+              <div class="article-table-wrap"><table>
+                <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td><code>require('http')</code></td><td>Imports the built-in HTTP module</td></tr>
+                  <tr><td><code>http.createServer()</code></td><td>Creates an HTTP server</td></tr>
+                  <tr><td><code>req</code></td><td>Contains information about the incoming request</td></tr>
+                  <tr><td><code>res</code></td><td>Used to send a response</td></tr>
+                  <tr><td><code>res.write()</code></td><td>Writes response content</td></tr>
+                  <tr><td><code>res.end()</code></td><td>Finishes the response</td></tr>
+                  <tr><td><code>server.listen(3000)</code></td><td>Starts listening on port 3000</td></tr>
+                </tbody>
+              </table></div>
+            </section>
+
+            <section id="npm">
+              <h2>5. What Is npm?</h2>
+              <p>Imagine you're building a house. You need bricks, cement, paint, doors, and windows. Instead of manufacturing everything yourself, you purchase ready-made materials.</p>
+              <p>Programming works similarly. Developers create reusable pieces of code called packages. Instead of writing everything from scratch, we can install packages and use them in our applications.</p>
+              <p><strong>npm stands for Node Package Manager.</strong> It helps developers install, manage, and maintain packages required by their projects.</p>
+              <p>For example, to install Express.js, run:</p>
+              <pre><code>npm install express</code></pre>
+              <ul><li><code>npm</code> is the package manager.</li><li><code>install</code> is the command.</li><li><code>express</code> is the package name.</li></ul>
+              <p>Think of npm as a shopping store for programming packages.</p>
+            </section>
+
+            <section id="express">
+              <h2>6. What Is Express.js?</h2>
+              <p>Node.js allows us to create servers, but writing everything with Node.js's built-in HTTP module can become lengthy as an application grows. Imagine an application with 50 different API endpoints: managing every incoming request manually would become difficult.</p>
+              <p><strong>Express.js is a web framework for Node.js that makes building web servers and APIs easier.</strong> Think of Node.js as the kitchen and Express.js as the manager who organizes the kitchen and makes order handling easier.</p>
+              <h3>Node.js vs Express.js</h3>
+              <div class="article-table-wrap"><table>
+                <thead><tr><th>Node.js</th><th>Express.js</th></tr></thead>
+                <tbody>
+                  <tr><td>Runtime environment</td><td>Web framework</td></tr>
+                  <tr><td>Executes JavaScript outside the browser</td><td>Simplifies server and API development</td></tr>
+                  <tr><td>Provides built-in modules such as HTTP and FS</td><td>Provides routing and middleware functionality</td></tr>
+                  <tr><td>Can create servers without Express</td><td>Runs on top of Node.js</td></tr>
+                </tbody>
+              </table></div>
+              <h3>Creating a server using Express.js</h3>
+              <p>First, initialize your project and install Express:</p>
+              <pre><code>npm init -y
+npm install express</code></pre>
+              <p>Create a file called <code>server.js</code>:</p>
+              <pre><code>const express = require('express');
+
+const app = express();
+
+app.get('/', (req, res) =&gt; {
+    res.send('Hello from Express!');
+});
+
+app.listen(3000, () =&gt; {
+    console.log('Server running on port 3000');
+});</code></pre>
+              <p>Run <code>node server.js</code> and visit <code>http://localhost:3000</code>. The page displays <code>Hello from Express!</code>. Notice how much simpler it is to create a server using Express.</p>
+            </section>
+
+            <section id="apis">
+              <h2>7. What Are APIs in Node.js?</h2>
+              <p>API stands for <strong>Application Programming Interface</strong>. In simple words, an API allows two applications to communicate with each other.</p>
+              <p>Imagine you're building a GitHub Profile Analyzer using React. A user enters their GitHub username and clicks Search. Behind the scenes:</p>
+              <ol><li>React sends a request to the backend.</li><li>Node.js receives the request.</li><li>Node.js calls the GitHub API.</li><li>GitHub returns profile information.</li><li>Node.js sends the information back to React.</li><li>React displays the profile.</li></ol>
+              <p>This is how frontend and backend applications communicate.</p>
+              <h3>Creating a simple API using Express</h3>
+              <pre><code>const express = require('express');
+
+const app = express();
+
+app.get('/user', (req, res) =&gt; {
+    res.json({
+        name: 'Tanay',
+        age: 25,
+        technology: 'React'
+    });
+});
+
+app.listen(3000, () =&gt; {
+    console.log('Server running on port 3000');
+});</code></pre>
+              <p>Now visit <code>http://localhost:3000/user</code>. The response is:</p>
+              <pre><code>{
+    "name": "Tanay",
+    "age": 25,
+    "technology": "React"
+}</code></pre>
+              <p>Here, <code>/user</code> is called an API endpoint. The <code>res.json()</code> method sends a JSON response to the client.</p>
+            </section>
+
+            <section id="async">
+              <h2>8. What Is Asynchronous Programming?</h2>
+              <p>This is one of the most important concepts in Node.js. Imagine you visit a restaurant and order food. The waiter tells you that it will take 20 minutes. Should you stand in front of the kitchen doing nothing? Of course not! You can sit at your table, talk to your friends, or use your phone. When your food is ready, the waiter brings it to you.</p>
+              <p>Programming works similarly. Suppose Node.js needs to read a file or fetch data from an API. Instead of blocking the main JavaScript thread while waiting, Node.js can continue processing other work. This is called <strong>asynchronous programming</strong>.</p>
+              <h3>A. Callback functions</h3>
+              <p>A callback is a function passed as an argument to another function, which can be executed later.</p>
+              <pre><code>function orderFood(callback) {
+    console.log('Food ordered');
+    callback();
+}
+
+orderFood(function() {
+    console.log('Food is ready');
+});</code></pre>
+              <p>Output:</p>
+              <pre><code>Food ordered
+Food is ready</code></pre>
+              <p>Think of a callback as telling someone, “Call me when the food is ready.” Callbacks are commonly used in asynchronous operations, although not every callback is asynchronous.</p>
+              <h3>B. Promises</h3>
+              <p>A Promise represents the eventual result of an asynchronous operation. Think of a restaurant promising to deliver your food. There are three states:</p>
+              <ol><li><strong>Pending:</strong> Food is being prepared.</li><li><strong>Fulfilled:</strong> Food is ready.</li><li><strong>Rejected:</strong> Food could not be prepared.</li></ol>
+              <pre><code>const foodOrder = new Promise((resolve, reject) =&gt; {
+    let foodAvailable = true;
+
+    if (foodAvailable) {
+        resolve('Food is ready!');
+    } else {
+        reject('Food is not available');
+    }
+});
+
+foodOrder
+    .then(result =&gt; console.log(result))
+    .catch(error =&gt; console.log(error));</code></pre>
+              <p>Output: <code>Food is ready!</code></p>
+              <ul><li><code>resolve()</code> indicates successful completion.</li><li><code>reject()</code> indicates failure.</li><li><code>.then()</code> handles successful Promise fulfillment.</li><li><code>.catch()</code> handles rejection.</li></ul>
+              <p>A Promise allows us to manage asynchronous operations in a more organized way.</p>
+              <h3>C. Async and await</h3>
+              <p>JavaScript also provides <code>async</code> and <code>await</code> for writing code that looks simple and executes step by step, without chaining multiple <code>.then()</code> calls.</p>
+              <pre><code>function orderFood() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve('Food is ready!');
+        }, 2000);
+    });
+}
+
+async function eatFood() {
+    console.log('Ordering food...');
+    const result = await orderFood();
+    console.log(result);
+}
+
+eatFood();</code></pre>
+              <p>Output:</p>
+              <pre><code>Ordering food...
+Food is ready!</code></pre>
+              <ul><li><code>async</code> makes a function return a Promise.</li><li><code>await</code> pauses the execution of that async function until the Promise settles.</li><li>Other work can continue while the Promise is pending.</li></ul>
+              <div class="article-callout"><strong>My recommendation:</strong> Understand callbacks first, then Promises, and finally async/await. These concepts are extremely important when working with APIs and databases.</div>
+            </section>
+
+            <section id="event-loop">
+              <h2>9. What Is the Event Loop in Node.js?</h2>
+              <p>The Event Loop helps Node.js manage asynchronous operations and determine when their callbacks can be executed. Imagine Node.js has a manager who receives multiple tasks: print a message, read a file, call an API, and print another message. Some tasks take more time than others.</p>
+              <p>Let's understand with an example:</p>
+              <pre><code>console.log('First');
+
+setTimeout(() =&gt; {
+    console.log('Second');
+}, 2000);
+
+console.log('Third');</code></pre>
+              <p>Output:</p>
+              <pre><code>First
+Third
+Second</code></pre>
+              <p>Why does this happen?</p>
+              <ol><li><code>First</code> is printed immediately.</li><li>The timer is scheduled for approximately two seconds.</li><li><code>Third</code> is printed immediately without waiting for the timer.</li><li>After the timer expires, its callback becomes eligible to run and <code>Second</code> is printed when the event loop can process it.</li></ol>
+              <h3>Is Node.js single-threaded?</h3>
+              <p>You'll often hear that Node.js is single-threaded. JavaScript execution normally happens on one main thread. However, Node.js can handle asynchronous operations efficiently using the Event Loop, operating-system facilities, and a background thread pool for certain operations.</p>
+              <p>This means Node.js doesn't need to block its main JavaScript thread while waiting for many I/O operations to finish. That's one reason Node.js is popular for applications that handle many concurrent network requests.</p>
+            </section>
+
+            <section id="modules">
+              <h2>10. What Are Modules in Node.js?</h2>
+              <p>Imagine you're working on a large school project. Instead of writing everything in one notebook, you divide your work into different notebooks: Mathematics, Science, and English. Programming works similarly. We divide code into different files called modules so it becomes easier to organize, reuse, and maintain.</p>
+              <p><strong>math.js</strong></p>
+              <pre><code>function add(a, b) {
+    return a + b;
+}
+
+module.exports = add;</code></pre>
+              <p><strong>app.js</strong></p>
+              <pre><code>const add = require('./math');
+
+console.log(add(10, 20));</code></pre>
+              <p>Output: <code>30</code></p>
+              <ul><li><code>module.exports</code> exports functionality from a file.</li><li><code>require()</code> imports functionality into another file.</li></ul>
+              <p>These are examples of CommonJS modules. Node.js also supports ES Modules using <code>import</code> and <code>export</code>:</p>
+              <pre><code>export function add(a, b) {
+    return a + b;
+}</code></pre>
+              <p>And import it using:</p>
+              <pre><code>import { add } from './math.js';</code></pre>
+            </section>
+
+            <section id="built-in-modules">
+              <h2>11. Important Built-in Modules in Node.js</h2>
+              <p>Node.js provides several built-in modules that we can use directly without installing additional packages. Think of them as tools already available in your toolbox.</p>
+              <div class="article-table-wrap"><table>
+                <thead><tr><th>Module</th><th>Purpose</th></tr></thead>
+                <tbody>
+                  <tr><td><code>http</code></td><td>Creates HTTP servers</td></tr>
+                  <tr><td><code>fs</code></td><td>Reads and writes files</td></tr>
+                  <tr><td><code>path</code></td><td>Works with file paths</td></tr>
+                  <tr><td><code>os</code></td><td>Provides operating system information</td></tr>
+                  <tr><td><code>events</code></td><td>Handles events</td></tr>
+                  <tr><td><code>crypto</code></td><td>Provides cryptographic functionality</td></tr>
+                </tbody>
+              </table></div>
+              <h3>Example: Reading a file using the FS module</h3>
+              <p>Create a file called <code>data.txt</code> and add <code>Hello, I am learning Node.js!</code>. Now create <code>app.js</code>:</p>
+              <pre><code>const fs = require('fs');
+
+fs.readFile('data.txt', 'utf8', (err, data) =&gt; {
+    if (err) {
+        console.log(err);
+        return;
+    }
+
+    console.log(data);
+});</code></pre>
+              <p>Output: <code>Hello, I am learning Node.js!</code></p>
+              <p><code>fs.readFile()</code> reads a file asynchronously. Its callback receives <code>err</code>, which contains any error, and <code>data</code>, which contains the file contents when the read succeeds.</p>
+            </section>
+
+            <section id="package-json">
+              <h2>12. What Is package.json?</h2>
+              <p>Imagine you're sharing your project with another developer. They need to know the project name, which packages are required, the project version, and which commands can be used to run it. This information is stored in a file called <code>package.json</code>.</p>
+              <pre><code>{
+    "name": "my-node-project",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^5.0.0"
+    }
+}</code></pre>
+              <p>Now you can run your application using <code>npm start</code> instead of manually executing <code>node server.js</code>.</p>
+              <h3>What Is package-lock.json?</h3>
+              <p><code>package-lock.json</code> records the exact dependency versions and dependency tree used during installation. It helps different developers install consistent versions of project dependencies.</p>
+              <ul><li><code>package.json</code> describes your project and its dependencies.</li><li><code>package-lock.json</code> records the exact dependency resolution.</li></ul>
+            </section>
+
+            <section id="together">
+              <h2>13. How Do All These Technologies Work Together?</h2>
+              <p>Imagine you're building a Student Management Application. You want users to view students, add students, update student details, and delete students. You can use these technologies:</p>
+              <div class="article-table-wrap"><table>
+                <thead><tr><th>Technology</th><th>Responsibility</th></tr></thead>
+                <tbody>
+                  <tr><td>React</td><td>Displays the user interface</td></tr>
+                  <tr><td>Node.js</td><td>Executes backend JavaScript</td></tr>
+                  <tr><td>Express.js</td><td>Handles routes and API requests</td></tr>
+                  <tr><td>MySQL</td><td>Stores student information</td></tr>
+                  <tr><td>npm</td><td>Installs and manages packages</td></tr>
+                </tbody>
+              </table></div>
+              <h3>What happens when a user clicks “View Students”?</h3>
+              <ol><li>React sends a GET request to the backend.</li><li>Express receives the request through the appropriate route.</li><li>Node.js executes the backend logic.</li><li>The backend fetches student records from MySQL.</li><li>The backend sends the records as JSON.</li><li>React receives the response and displays the students.</li></ol>
+              <p>This is how a typical full-stack application works.</p>
+            </section>
+
+            <section id="next">
+              <h2>14. What Should You Learn Next?</h2>
+              <p>If you're a beginner, I recommend following this learning path:</p>
+              <ol>
+                <li><strong>Node.js fundamentals:</strong> What Node.js is, installing it, running JavaScript with it, and understanding the runtime environment.</li>
+                <li><strong>JavaScript concepts:</strong> Callbacks, Promises, async/await, arrow functions, and destructuring.</li>
+                <li><strong>Node.js modules:</strong> CommonJS, ES Modules, require and exports, and fs, path, and http.</li>
+                <li><strong>npm:</strong> Installing packages, package.json, package-lock.json, and managing dependencies.</li>
+                <li><strong>Express.js:</strong> Creating a server, routing, middleware, and request and response objects.</li>
+                <li><strong>REST APIs:</strong> GET, POST, PUT, PATCH, DELETE, and HTTP status codes.</li>
+                <li><strong>Database connectivity:</strong> Connecting Node.js with MySQL or MongoDB, CRUD operations, and database queries.</li>
+                <li><strong>Authentication and authorization:</strong> User registration and login, password hashing, JWT authentication, and role-based authorization.</li>
+              </ol>
+            </section>
+
+            <section id="conclusion">
+              <h2>Conclusion</h2>
+              <div class="article-conclusion">
+                <p>Node.js is a powerful runtime environment that allows developers to use JavaScript outside the browser. It makes backend development possible using JavaScript and provides features for building servers and APIs, handling files, and communicating with databases.</p>
+                <p>When combined with Express.js, databases, and frontend frameworks like React, Node.js can be used to build complete web applications.</p>
+                <p>If you're just starting, don't try to memorize every definition. Focus on understanding:</p>
+                <ol><li>Why Node.js exists.</li><li>How a server works.</li><li>How requests and responses work.</li><li>How asynchronous programming works.</li><li>How Node.js and Express.js work together.</li></ol>
+                <p>Once these concepts become clear, learning the remaining parts of Node.js will become much easier.</p>
+                <p><strong>Happy Learning! 🚀</strong></p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </article>
+    </main>
+    <div data-site-footer></div>
+    <script src="../assets/js/site-shell.js" defer></script>
+    <script src="../assets/js/script.js" defer></script>
+  </body>
+</html>

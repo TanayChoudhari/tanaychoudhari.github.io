@@ -32,15 +32,6 @@ function updateNavigation() {
   for (const link of navLinks) {
     link.classList.toggle("active", link.hash === `#${activeSection?.id}`);
   }
-
-  if (nav && window.innerWidth > 760) {
-    const progress = Math.min(window.scrollY / 1000, 1);
-    const eased = 1 - (1 - progress) ** 4;
-    const wide = window.innerWidth * 0.8;
-    nav.style.width = `${wide - (wide - 528) * eased}px`;
-  } else if (nav) {
-    nav.style.removeProperty("width");
-  }
 }
 
 let navFrame = 0;
@@ -150,4 +141,5 @@ likeButton?.addEventListener("click", () => {
   requestAnimationFrame(() => likeButton.classList.add("pulse"));
 });
 
-document.querySelector("#current-year").textContent = String(new Date().getFullYear());
+const currentYear = document.querySelector("#current-year");
+if (currentYear) currentYear.textContent = String(new Date().getFullYear());
